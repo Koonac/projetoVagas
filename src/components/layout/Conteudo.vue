@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<h1 class="color-text" id="bg-default">Conteudo - Style</h1>
-		<div class="d-grid gap-2 col-4 mx-auto">
+		<div class="d-grid gap-2 col-4 mt-3 mx-auto">
 			<button
 				class="btn btn-dark shadow"
 				@click="nomeComponente = 'home'"
@@ -17,7 +16,7 @@
 				Componente Publicar Vaga
 			</button>
 		</div>
-		<div class="d-grid justify-content-center">
+		<div class="d-grid col-12 justify-content-center">
 			<!-- KeepAlive (keep-alive) mantém o componente em cache, somente o desativa e 
 				ativa novamente, com isso podemos utilizar os Lifecycle Hooks activated e deactivated-->
 			<keep-alive>
@@ -83,14 +82,4 @@
 	};
 </script>
 
-<style scoped>
-	.color-text {
-		color: purple;
-	}
-	.bg-text {
-		background-color: cornflowerblue;
-	}
-	#bg-default {
-		background-color: aqua;
-	}
-</style>
+<style scoped></style>
