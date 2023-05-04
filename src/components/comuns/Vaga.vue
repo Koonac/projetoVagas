@@ -16,12 +16,35 @@
 	export default {
 		name: "Vaga",
 		props: {
-			titulo: String,
-			descricao: String,
-			salario: [Number, String],
-			modalidade: String,
-			tipo: String,
-			publicacao: Date,
+			titulo: {
+				type: String,
+				required: true,
+				validator(p) {
+					return p.length > 6 ? true : false;
+				},
+			},
+			descricao: {
+				type: String,
+				default() {
+					return "*".repeat(50);
+				},
+			},
+			salario: {
+				type: [Number, String],
+				required: true,
+			},
+			modalidade: {
+				type: String,
+				required: true,
+			},
+			tipo: {
+				type: String,
+				required: true,
+			},
+			publicacao: {
+				type: String,
+				required: true,
+			},
 		},
 	};
 </script>
