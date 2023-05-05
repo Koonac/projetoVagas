@@ -1,21 +1,5 @@
 <template>
 	<div>
-		<div class="d-grid gap-2 col-4 mt-3 mx-auto">
-			<button
-				class="btn btn-dark shadow"
-				@click="nomeComponente = 'home'"
-				type="button"
-			>
-				Componente Home
-			</button>
-			<button
-				class="btn btn-dark shadow"
-				@click="nomeComponente = 'publicar-vaga'"
-				type="button"
-			>
-				Componente Publicar Vaga
-			</button>
-		</div>
 		<div class="d-grid col-12 justify-content-center">
 			<!-- KeepAlive (keep-alive) mantém o componente em cache, somente o desativa e 
 				ativa novamente, com isso podemos utilizar os Lifecycle Hooks activated e deactivated-->
@@ -32,9 +16,12 @@
 
 	export default {
 		name: "Conteudo",
-		data: () => ({
-			nomeComponente: "home",
-		}),
+		props: {
+			nomeComponente: {
+				type: String,
+				required: true,
+			},
+		},
 		components: {
 			Home,
 			PublicarVaga,

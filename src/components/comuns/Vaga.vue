@@ -6,8 +6,8 @@
 		</div>
 		<div class="card-footer">
 			<small class="text-muted">
-				Salário: R$ {{ salario }} | Modalidade: {{ modalidade }} | Tipo:
-				{{ tipo }} | Publicação: {{ publicacao }}
+				Salário: R$ {{ salario }} | Modalidade: {{ getModalidade }} | Tipo:
+				{{ getTipo }} | Publicação: {{ getPublicacao }}
 			</small>
 		</div>
 	</div>
@@ -44,6 +44,36 @@
 			publicacao: {
 				type: String,
 				required: true,
+			},
+		},
+		computed: {
+			getModalidade() {
+				switch (this.modalidade) {
+					case "1":
+						return "Home Office";
+					case "2":
+						return "Presencial";
+					default:
+						return "";
+				}
+			},
+			getTipo() {
+				switch (this.tipo) {
+					case "1":
+						return "PJ";
+					case "2":
+						return "CLT";
+					default:
+						return "";
+				}
+			},
+			getPublicacao() {
+				/* INICIALIZANDO OBJETO DATA */
+				let dataPublicacao = new Date(this.publicacao);
+
+				/* FORMATANDO DATA PARA PT BR */
+				// return dataPublicacao.toLocaleString("pt-Br");
+				return dataPublicacao.toLocaleDateString("pt-Br");
 			},
 		},
 	};

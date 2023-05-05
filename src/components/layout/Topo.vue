@@ -16,10 +16,12 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="#">Home</a>
+						<a class="nav-link" href="#" @click="navegarPara('home')">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Publicar Vaga</a>
+						<a class="nav-link" href="#" @click="navegarPara('publicar-vaga')"
+							>Publicar Vaga</a
+						>
 					</li>
 				</ul>
 			</div>
@@ -30,6 +32,12 @@
 <script>
 	export default {
 		name: "Topo",
+		methods: {
+			navegarPara(navegar) {
+				/* THIS.$EMIT() PARA ENVIAR UM EVENTO AO COMPONENTE PAI*/
+				this.$emit("navegarPara", navegar);
+			},
+		},
 	};
 </script>
 

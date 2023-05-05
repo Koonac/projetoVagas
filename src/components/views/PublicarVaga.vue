@@ -1,5 +1,8 @@
 <template>
 	<div class="container py-4">
+		<div class="alert alert-success" v-show="alertSucess">
+			Vaga publicada com sucesso
+		</div>
 		<div class="row">
 			<div class="col">
 				<h4>Apresente a sua vaga para milhares de profissionais e de free</h4>
@@ -80,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-3">
+		<div class="row row-cols-2 mt-3">
 			<div class="col">
 				<button type="submit" class="btn btn-primary" @click="publicarVaga()">
 					Publicar
@@ -94,6 +97,7 @@
 	export default {
 		name: "PublicarVaga",
 		data: () => ({
+			alertSucess: false,
 			titulo: "",
 			descricao: "",
 			salario: "",
@@ -108,6 +112,9 @@
 				/* ANALISANDO SE VAGAS EXISTE */
 				if (!vagas) vagas = [];
 
+				/* CAPTURANDO TIME ATUAL */
+				let publicacao = new Date(Date.now());
+
 				/* INICIALIZANDO VARIÁVEL DE NOVA VAGA */
 				let novaVaga = {
 					titulo: this.titulo,
@@ -115,6 +122,7 @@
 					salario: this.salario,
 					modalidade: this.modalidade,
 					tipo: this.tipo,
+					publicacao: publicacao.toISOString(),
 				};
 
 				/* ADICIONANDO NOVA VAGA AO ARRAY */
@@ -122,7 +130,47 @@
 
 				/* SETANDO VAGAS AO LOCAL STORAGE */
 				localStorage.setItem("vagas", JSON.stringify(vagas));
+
+				/* RESETANDO VARIÁVEIS */
+				this.alertSucess = true;
+				this.titulo = "";
+				this.descricao = "";
+				this.salario = "";
+				this.modalidade = "";
+				this.tipo = "";
 			},
+			desativaAlertSucess() {},
+		},
+		created() {
+			/* INICILIZANDO VARIÁVEL */
+			let camposFormInput = JSON.parse(localStorage.getItem("camposFormInput"));
+
+			/* ANALISANDO SE VARIÁVEL LOCAL EXISTE */
+			if (camposFormInput) {
+				this.titulo = camposFormInput.titulo;
+				this.descricao = camposFormInput.descricao;
+				this.salario = camposFormInput.salario;
+				this.modalidade = camposFormInput.modalidade;
+				this.tipo = camposFormInput.tipo;
+			}
+		},
+		updated() {
+			let camposFormInput = {
+				titulo: this.titulo,
+				descricao: this.descricao,
+				salario: this.salario,
+				modalidade: this.modalidade,
+				tipo: this.tipo,
+			};
+
+			/* SETANDO VAGAS AO LOCAL STORAGE */
+			localStorage.setItem("camposFormInput", JSON.stringify(camposFormInput));
+
+			if (this.alertSucess) {
+				setTimeout(() => {
+					this.alertSucess = false;
+				}, 5000);
+			}
 		},
 	};
 </script>

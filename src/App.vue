@@ -1,7 +1,9 @@
 <template>
 	<div>
-		<topo />
-		<conteudo />
+		<!-- 'navegarPara' É UM EVENTO CRIADO NO COMPONENTE 'topo'(FILHO) E 
+		ESTAMOS CAPTURANDO ESSE EVENTO E SEU VALOR COM O '$event'  -->
+		<topo @navegarPara="alterarComponenteView($event)" />
+		<conteudo :nomeComponente="nomeComponente" />
 	</div>
 </template>
 
@@ -14,6 +16,14 @@
 		components: {
 			Topo,
 			Conteudo,
+		},
+		data: () => ({
+			nomeComponente: "home",
+		}),
+		methods: {
+			alterarComponenteView(componente) {
+				this.nomeComponente = componente;
+			},
 		},
 	};
 </script>
