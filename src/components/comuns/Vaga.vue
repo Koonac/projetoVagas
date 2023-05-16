@@ -13,9 +13,12 @@
 							id="btn-check-outlined"
 							autocomplete="off"
 						/>
-						<label class="btn btn-outline-danger" for="btn-check-outlined"
-							><font-awesome-icon icon="HatWizard"
-						/></label>
+						<label class="btn btn-outline-danger" for="btn-check-outlined">
+							<font-awesome-icon icon="fa-regular fa-heart" />
+							<button class="btn btn-danger" @click="eventoEmitt()">
+								Evento
+							</button>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -93,6 +96,14 @@
 				/* FORMATANDO DATA PARA PT BR */
 				// return dataPublicacao.toLocaleString("pt-Br");
 				return dataPublicacao.toLocaleDateString("pt-Br");
+			},
+		},
+		methods: {
+			eventoEmitt() {
+				this.emitter.emit(
+					"eventoGlobal1",
+					"Essa é uma mensagem do evento global."
+				);
 			},
 		},
 	};
