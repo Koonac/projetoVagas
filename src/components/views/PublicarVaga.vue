@@ -1,8 +1,5 @@
 <template>
 	<div class="container py-4">
-		<div class="alert alert-success" v-show="alertSucess">
-			Vaga publicada com sucesso
-		</div>
 		<div class="row">
 			<div class="col">
 				<h4>Apresente a sua vaga para milhares de profissionais e de free</h4>
@@ -88,6 +85,7 @@
 				<button type="submit" class="btn btn-primary" @click="publicarVaga()">
 					Publicar
 				</button>
+				<button class="btn btn-secondary" @click="testar()">Teste</button>
 			</div>
 		</div>
 	</div>
@@ -97,7 +95,6 @@
 	export default {
 		name: "PublicarVaga",
 		data: () => ({
-			alertSucess: false,
 			titulo: "",
 			descricao: "",
 			salario: "",
@@ -132,14 +129,19 @@
 				localStorage.setItem("vagas", JSON.stringify(vagas));
 
 				/* RESETANDO VARIÁVEIS */
-				this.alertSucess = true;
+				this.resetaFormPublicarVaga();
+
+				/* ABRINDO ALERT */
+				this.emitter.emit("alerta", ["SUCESSO", "Vaga publicada com sucesso."]);
+			},
+			resetaFormPublicarVaga() {
+				/* RESETANDO VARIÁVEIS */
 				this.titulo = "";
 				this.descricao = "";
 				this.salario = "";
 				this.modalidade = "";
 				this.tipo = "";
 			},
-			desativaAlertSucess() {},
 		},
 		created() {
 			/* INICILIZANDO VARIÁVEL */
@@ -165,12 +167,6 @@
 
 			/* SETANDO VAGAS AO LOCAL STORAGE */
 			localStorage.setItem("camposFormInput", JSON.stringify(camposFormInput));
-
-			if (this.alertSucess) {
-				setTimeout(() => {
-					this.alertSucess = false;
-				}, 5000);
-			}
 		},
 	};
 </script>

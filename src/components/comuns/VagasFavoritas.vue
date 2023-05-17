@@ -31,7 +31,15 @@
 				></button>
 			</div>
 			<div class="offcanvas-body">
-				<p>Alguma coisa</p>
+				<ul class="list-group">
+					<li
+						class="list-group-item"
+						v-for="(vaga, index) in vagasFavoritadas"
+						:key="index"
+					>
+						{{ vaga }}
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -39,9 +47,17 @@
 <script>
 	export default {
 		name: "VagasFavoritas",
+		data: () => ({
+			vagasFavoritadas: [],
+		}),
 		mounted() {
-			this.emitter.on("eventoGlobal1", (p) => {
-				console.log("Componente favoritar vagas: " + p);
+			this.emitter.on("favoritarVaga", (titulo) => {
+				this.vagasFavoritadas.push(titulo);
+			});
+			this.emitter.on("desfavoritarVaga", (titulo) => {
+				let indiceArray = this.vagasFavoritadas.indexOf(titulo);
+
+				if (indiceArray !== -1) this.vagasFavoritadas.splice(indiceArray, 1);
 			});
 		},
 	};

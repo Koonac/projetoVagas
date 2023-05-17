@@ -9,15 +9,11 @@
 					<div class="form-check form-switch">
 						<input
 							type="checkbox"
-							class="btn-check"
+							class="form-check-input"
 							id="btn-check-outlined"
-							autocomplete="off"
+							v-model="favoritar"
 						/>
-						<label class="btn btn-outline-danger" for="btn-check-outlined">
-							<font-awesome-icon icon="fa-regular fa-heart" />
-							<button class="btn btn-danger" @click="eventoEmitt()">
-								Evento
-							</button>
+						<label class="form-check-label">Favoritar
 						</label>
 					</div>
 				</div>
@@ -37,6 +33,18 @@
 <script>
 	export default {
 		name: "Vaga",
+		data: () => ({
+			favoritar: false,
+		}),
+		watch: {
+			favoritar(valorNovo) {
+				if (valorNovo) {
+					this.emitter.emit("favoritarVaga", this.titulo);
+				} else {
+					this.emitter.emit("desfavoritarVaga", this.titulo);
+				}
+			},
+		},
 		props: {
 			titulo: {
 				type: String,
@@ -94,17 +102,9 @@
 				let dataPublicacao = new Date(this.publicacao);
 
 				/* FORMATANDO DATA PARA PT BR */
-				// return dataPublicacao.toLocaleString("pt-Br");
 				return dataPublicacao.toLocaleDateString("pt-Br");
 			},
 		},
-		methods: {
-			eventoEmitt() {
-				this.emitter.emit(
-					"eventoGlobal1",
-					"Essa é uma mensagem do evento global."
-				);
-			},
-		},
+		methods: {},
 	};
 </script>
