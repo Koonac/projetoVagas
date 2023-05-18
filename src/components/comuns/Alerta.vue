@@ -13,8 +13,8 @@
 		}),
 		mounted() {
 			this.emitter.on("alerta", (p) => {
-				this.tipoAlerta = p[0];
-				this.msgAlert = p[1];
+				this.tipoAlerta = p.tipoAlerta;
+				this.msgAlert = p.msgAlerta;
 				this.exibirAlerta = true;
 			});
 		},
@@ -35,7 +35,7 @@
 					case "SUCESSO":
 						return "alert-success";
 					case "AVISO":
-						return "alert-success";
+						return "alert-warning";
 					default:
 						return "alert-success";
 				}

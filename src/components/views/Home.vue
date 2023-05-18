@@ -61,10 +61,24 @@
 			setInterval(this.getVisitantesOnline, 2000);
 		},
 		activated() {
-			this.vagas = JSON.parse(localStorage.getItem("vagas")).reverse();
+			let vagas = JSON.parse(localStorage.getItem("vagas"));
+			if (vagas) {
+				this.vagas = vagas.reverse();
+			}
 		},
 		deactivated() {
 			console.log("Componente é desativado");
+		},
+		mounted() {
+			this.emitter.on("pesquisandoVaga", (pesquisa) => {
+				/* CAPTURANDO VAGAS EM LOCAL STORAGE */
+				const vagas = JSON.parse(localStorage.getItem("vagas"));
+
+				/* FILTRANDO VAGAS PELO PARÂMETRO DE PESQUISA */
+				this.vagas = vagas.filter((i) =>
+					i.titulo.toLowerCase().includes(pesquisa.toLowerCase())
+				);
+			});
 		},
 	};
 </script>

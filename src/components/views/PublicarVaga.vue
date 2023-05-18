@@ -85,7 +85,6 @@
 				<button type="submit" class="btn btn-primary" @click="publicarVaga()">
 					Publicar
 				</button>
-				<button class="btn btn-secondary" @click="testar()">Teste</button>
 			</div>
 		</div>
 	</div>
@@ -122,17 +121,26 @@
 					publicacao: publicacao.toISOString(),
 				};
 
-				/* ADICIONANDO NOVA VAGA AO ARRAY */
-				vagas.push(novaVaga);
-
-				/* SETANDO VAGAS AO LOCAL STORAGE */
-				localStorage.setItem("vagas", JSON.stringify(vagas));
-
-				/* RESETANDO VARIÁVEIS */
-				this.resetaFormPublicarVaga();
-
-				/* ABRINDO ALERT */
-				this.emitter.emit("alerta", ["SUCESSO", "Vaga publicada com sucesso."]);
+				if (this.validaFormulario()) {
+					/* ADICIONANDO NOVA VAGA AO ARRAY */
+					vagas.push(novaVaga);
+					/* SETANDO VAGAS AO LOCAL STORAGE */
+					localStorage.setItem("vagas", JSON.stringify(vagas));
+					/* ABRINDO ALERT */
+					this.emitter.emit("alerta", {
+						tipoAlerta: "SUCESSO",
+						msgAlerta: `Vaga ${this.titulo} foi publicada com sucesso e já está disponivel em nosso site.`,
+					});
+					/* RESETANDO VARIÁVEIS */
+					this.resetaFormPublicarVaga();
+				} else {
+					/* ABRINDO ALERT */
+					this.emitter.emit("alerta", {
+						tipoAlerta: "ERRO",
+						msgAlerta:
+							"-_- Oopsss... parece que você esqueceu de preencher algum campo.",
+					});
+				}
 			},
 			resetaFormPublicarVaga() {
 				/* RESETANDO VARIÁVEIS */
@@ -141,6 +149,17 @@
 				this.salario = "";
 				this.modalidade = "";
 				this.tipo = "";
+			},
+			validaFormulario() {
+				let valido = true;
+
+				if (this.titulo == "") valido = false;
+				if (this.descricao == "") valido = false;
+				if (this.salario == "") valido = false;
+				if (this.modalidade == "") valido = false;
+				if (this.tipo == "") valido = false;
+
+				return valido;
 			},
 		},
 		created() {

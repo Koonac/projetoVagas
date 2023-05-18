@@ -7,6 +7,7 @@
 		ESTAMOS CAPTURANDO ESSE EVENTO E SEU VALOR COM O '$event'  -->
 		<topo @navegarPara="nomeComponente = $event" />
 
+		<!-- Componente alerta  -->
 		<alerta />
 
 		<!-- CONTEUDO -->
